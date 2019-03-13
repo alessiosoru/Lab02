@@ -1,6 +1,6 @@
 package it.polito.tdp.alien.model;
 
-import java.security.InvalidParameterException;
+import java.util.List;
 
 import it.polito.tdp.alien.AlienDictionary;
 
@@ -30,14 +30,20 @@ public class AlienModel {
 		
 		
 		if(words.length==1) {
-			String traduzione = alienDictionary.translateWord(words[0]);
-				if(traduzione==null)
-					return "Non risulta nota la traduzione della parola \" "+words[0]+" \""+"\n";			
-				else
-					return "Traduzione di \" "+words[0]+"\": "+traduzione+"\n";
+			List<String> traduzione = alienDictionary.translateWord(words[0]);
+			if(traduzione==null)
+				return "Non risulta nota la traduzione della parola \" "+words[0]+" \""+"\n";			
+			else {
+				String traduzioni = "Traduzione di \" "+words[0]+"\": \n";
+				for(String w : traduzione){
+					traduzioni = traduzioni + w +"\n";
+					}
+				return traduzioni;
+				
+			}
 		} else {
 			alienDictionary.addWord(words[0], words[1]);
-			return "Inserita:\n"+"Traduzione di \" "+words[0]+" \": "+words[1]+"\n";
+			return "Nuovo inserimento:\n"+"Traduzione di \" "+words[0]+" \": "+words[1]+"\n";
 		}
 	}
 

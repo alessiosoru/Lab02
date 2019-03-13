@@ -4,23 +4,24 @@ import java.util.*;
 
 public class AlienDictionary {
 	
-	private List<Word> dictionary;	
+	private List<WordEnhanced> dictionary;	
 	
 	public AlienDictionary() {
-		this.dictionary = new LinkedList<Word>();
+		this.dictionary = new LinkedList<WordEnhanced>();
 	}
 
 	public void addWord(String alienWord, String translation) {
 		
 		alienWord = alienWord.toLowerCase();
 		translation = translation.toLowerCase();
-		Word word = new Word(alienWord, translation);
+		WordEnhanced word = new WordEnhanced(alienWord, translation);
 		
 		boolean presente = false;
-		int i=0;
-		for(Word w : dictionary) {
+//		int i=0;
+		for(WordEnhanced w : dictionary) {
 			if(w.equals(alienWord)) {
-				dictionary.set(i, word);
+//				dictionary.set(i, word); // modificava la traduzione di quella precisa parola
+				w.addWord(translation); // aggiunge una traduzione multipla alla parola già presente
 				presente=true;
 				break;
 			}
@@ -31,8 +32,8 @@ public class AlienDictionary {
 		
 	}
 
-	public String translateWord (String alienWord) {
-		for(Word w : dictionary) {
+	public List<String> translateWord (String alienWord) {
+		for(WordEnhanced w : dictionary) {
 			if(w.getAlienWord().compareTo(alienWord)==0)
 				return w.getTranslation();
 		}
